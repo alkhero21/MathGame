@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SLl-O2-Ea4">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Welcome-->
+        <scene sceneID="BfA-XT-8Tg">
+            <objects>
+                <viewController id="UVZ-AU-PvY" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eRQ-AZ-hdE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Mgn-5V-RAw"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Welcome" id="gZU-5F-jan">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="stg-da-nfJ"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="QUk-P0-gbg">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="gCc-My-xcM">
+                                <rect key="frame" x="306.5" y="5" width="87.5" height="34.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Start"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="qbN-aO-bNY"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aY9-yd-jYX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="168.11594202898553" y="-3.3482142857142856"/>
+        </scene>
+        <!--Math Game-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MathBuster" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,18 +47,26 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background " translatesAutoresizingMaskIntoConstraints="NO" id="W13-3h-pl5">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="C2K-tp-t2b">
-                                <rect key="frame" x="20" y="128" width="374" height="522.5"/>
+                                <rect key="frame" x="20" y="132" width="374" height="500.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Math Game" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzk-af-qtV">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="53"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="44"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="DYh-HP-72c">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="32"/>
+                                        <segments>
+                                            <segment title="Easy"/>
+                                            <segment title="Medium"/>
+                                            <segment title="Hard"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="segmentedControlValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Ujf-66-eSd"/>
+                                        </connections>
+                                    </segmentedControl>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GOU-AI-Ra9">
-                                        <rect key="frame" x="0.0" y="73" width="374" height="334"/>
+                                        <rect key="frame" x="0.0" y="51" width="374" height="334"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:30" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eI7-yN-x9C">
                                                 <rect key="frame" x="20" y="20" width="334" height="40"/>
@@ -66,7 +103,7 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                             </textField>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="0.94857929558153975" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="YOi-n2-KOt" firstAttribute="top" secondItem="H21-4h-WhR" secondAttribute="bottom" constant="20" id="7wi-ay-CzD"/>
                                             <constraint firstAttribute="trailing" secondItem="YOi-n2-KOt" secondAttribute="trailing" constant="20" id="9qk-y1-yAq"/>
@@ -85,9 +122,12 @@
                                             <constraint firstAttribute="trailing" secondItem="XHN-GN-aRj" secondAttribute="trailing" constant="20" id="kDk-w6-sJD"/>
                                             <constraint firstAttribute="trailing" secondItem="eI7-yN-x9C" secondAttribute="trailing" constant="20" id="kgK-eX-fyW"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="10"/>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9pE-Fb-cfz">
-                                        <rect key="frame" x="0.0" y="427" width="374" height="40"/>
+                                        <rect key="frame" x="0.0" y="405" width="374" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="pzR-OY-Ctf"/>
                                         </constraints>
@@ -98,9 +138,12 @@
                                             <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="baseBackgroundColor" red="0.94258123640000002" green="0.59748047589999997" blue="0.2155364454" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="submitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EYJ-74-vDv"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hV2-eh-EaH">
-                                        <rect key="frame" x="0.0" y="487" width="374" height="35.5"/>
+                                        <rect key="frame" x="0.0" y="465" width="374" height="35.5"/>
                                         <color key="tintColor" red="0.99607843139999996" green="0.37254901959999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" title="Restart">
@@ -108,13 +151,16 @@
                                             <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="baseBackgroundColor" red="0.99607843139999996" green="0.37254901959999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="insertButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VhO-TD-EmT"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <constraints>
-                            <constraint firstItem="C2K-tp-t2b" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="C4C-8t-vyP"/>
+                            <constraint firstItem="C2K-tp-t2b" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="C4C-8t-vyP"/>
                             <constraint firstAttribute="bottom" secondItem="W13-3h-pl5" secondAttribute="bottom" id="RKa-Zu-t1Y"/>
                             <constraint firstItem="W13-3h-pl5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Wut-1N-AiI"/>
                             <constraint firstItem="W13-3h-pl5" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="c4z-f4-pDb"/>
@@ -123,12 +169,14 @@
                             <constraint firstItem="W13-3h-pl5" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yFk-Tc-4c1"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Math Game" id="kDm-z0-7SH"/>
                     <connections>
                         <outlet property="problemLabel" destination="YOi-n2-KOt" id="Jjh-mt-bWT"/>
                         <outlet property="progressView" destination="H21-4h-WhR" id="kEh-kS-stV"/>
                         <outlet property="restartButton" destination="hV2-eh-EaH" id="X5y-kO-Ryc"/>
                         <outlet property="resultField" destination="XHN-GN-aRj" id="lqD-nu-XDt"/>
                         <outlet property="scoreLabel" destination="YxZ-c0-H51" id="kbZ-dP-vMO"/>
+                        <outlet property="segmentedControl" destination="DYh-HP-72c" id="yFm-sU-tdD"/>
                         <outlet property="submitButton" destination="9pE-Fb-cfz" id="jla-OL-fLp"/>
                         <outlet property="timerContainerView" destination="GOU-AI-Ra9" id="Xdo-yv-5yS"/>
                         <outlet property="timerLabel" destination="eI7-yN-x9C" id="2el-Y9-gbg"/>
@@ -136,10 +184,31 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="46.376811594202906" y="-2.6785714285714284"/>
+            <point key="canvasLocation" x="956.52173913043487" y="-2.6785714285714284"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Bgo-uD-1kv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SLl-O2-Ea4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LGq-5T-VwD">
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="UVZ-AU-PvY" kind="relationship" relationship="rootViewController" id="Y5X-6X-4qr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a2V-Uh-gie" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-742.02898550724649" y="-3.3482142857142856"/>
         </scene>
     </scenes>
     <resources>
         <image name="background " width="199" height="360"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
