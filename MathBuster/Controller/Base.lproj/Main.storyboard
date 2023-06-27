@@ -12,12 +12,25 @@
         <!--Welcome-->
         <scene sceneID="BfA-XT-8Tg">
             <objects>
-                <viewController id="UVZ-AU-PvY" sceneMemberID="viewController">
+                <viewController id="UVZ-AU-PvY" customClass="UserScoreViewController" customModule="MathBuster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eRQ-AZ-hdE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDb-hg-9LN">
+                                <rect key="frame" x="20" y="112" width="374" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Mgn-5V-RAw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iDb-hg-9LN" firstAttribute="top" secondItem="Mgn-5V-RAw" secondAttribute="top" constant="20" id="M3N-wW-ICQ"/>
+                            <constraint firstItem="iDb-hg-9LN" firstAttribute="leading" secondItem="Mgn-5V-RAw" secondAttribute="leading" constant="20" id="Yas-3H-hRL"/>
+                            <constraint firstItem="Mgn-5V-RAw" firstAttribute="trailing" secondItem="iDb-hg-9LN" secondAttribute="trailing" constant="20" id="iHV-cr-8jk"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Welcome" id="gZU-5F-jan">
                         <barButtonItem key="backBarButtonItem" title="Back" id="stg-da-nfJ"/>
@@ -32,6 +45,9 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="textLabel" destination="iDb-hg-9LN" id="kPg-P1-Qum"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aY9-yd-jYX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
