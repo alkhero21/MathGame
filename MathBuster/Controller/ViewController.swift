@@ -41,7 +41,8 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         navigationBarPreviousTintColor = navigationController?.navigationBar.tintColor
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = .orange
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -100,7 +101,7 @@ class ViewController: UIViewController {
     }
     
     func sheduleTimer(){
-        countDown = 3
+        countDown = 30
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimerUI), userInfo: nil, repeats: true)
     }

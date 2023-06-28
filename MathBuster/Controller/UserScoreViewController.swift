@@ -7,22 +7,47 @@
 
 import UIKit
 
-class UserScoreViewController: UIViewController {
+class UserScoreViewController: UIViewController, UITableViewDataSource{
+    
 
-    @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+//    let cellSpacingHeight: CGFloat = 5
+    
+    var userScoreArrayOfDicitionaries: [[String: Any]] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
+        tableView.register(UINib(nibName: "ScoreTableViewCell", bundle: nil), forCellReuseIdentifier: ScoreTableViewCell.identifier)
+        tableView.dataSource = self
+        tableView.rowHeight = 60
+        
+        
+        
+       
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         getUserScore()
+        
+        navigationItem.titleView?.tintColor = .orange
+        navigationController?.navigationItem.titleView?.tintColor = .systemOrange
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.orange]
+        
+        
     }
+    
+
     
 
     func getUserScore() {
@@ -37,17 +62,41 @@ class UserScoreViewController: UIViewController {
             return
         }
         
-        var text:String = ""
+//        var text:String = ""
+//
+//        userScoreArrayOfDictionaries.forEach{ dictionary in
+//            if let name = dictionary["name"] as? String, let score = dictionary["score"] as? Int {
+//                text += "Name: \(name),  Score \(score) \n"
+//            }
+//
+//        }
         
-        userScoreArrayOfDictionaries.forEach{ dictionary in
-            if let name = dictionary["name"] as? String, let score = dictionary["score"] as? Int {
-                text += "Name: \(name),  Score \(score) \n"
-            }
-            
-        }
-        
-        textLabel.text = text
+        self.userScoreArrayOfDicitionaries = userScoreArrayOfDictionaries
         
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return userScoreArrayOfDicitionaries.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ScoreTableViewCell.identifier, for: indexPath) as! ScoreTableViewCell
+        
+        let dictionary: [String: Any] = userScoreArrayOfDicitionaries[indexPath.row]
+        if let name = dictionary["name"] as? String, let score = dictionary["score"] as? Int {
+            cell.scoreTextLabel.text = "Name: \(name),  Score \(score) \n"
+        }
+        
+        cell.layer.cornerRadius = 10
+        cell.layer.borderColor = UIColor.orange.cgColor
+        cell.layer.borderWidth = 1
+        return cell
+    }
+    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//           return cellSpacingHeight
+//    }
+    
+    
 
 }
