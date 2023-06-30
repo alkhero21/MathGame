@@ -12,7 +12,7 @@ class UserScoreViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    var userScoreArrayOfDicitionaries: [UserScore] = [] {
+    var dataSource: [UserScoreSection] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -48,13 +48,28 @@ class UserScoreViewController: UIViewController {
     @objc func getUserScore() {
         
         tableView.refreshControl?.endRefreshing()
-        self.userScoreArrayOfDicitionaries = ViewController.getAllUserScore()
+        
+        let easyScoreList = ViewController.getAllUserScore(level: .easy)
+        let easySection = UserScoreSection(list: easyScoreList, title: "Easy")
+        
+        let mediumScoreList = ViewController.getAllUserScore(level: .medium)
+        let mediumSection = UserScoreSection(list: mediumScoreList, title: "Medium")
+        
+        let hardScoreList = ViewController.getAllUserScore(level: .hard)
+        let hardSection = UserScoreSection(list: hardScoreList, title: "Hard")
+        
+        
+        self.dataSource = [easySection, mediumSection, hardSection]
+        
+                                                           
+        
+//        self.userScoreArrayOfDicitionaries = ViewController.getAllUserScore()
         
     }
     
     
-    func getSingleUserText(index: Int) -> String? {
-        let userScore: UserScore = userScoreArrayOfDicitionaries[index]
+    func getSingleUserText(indexPath: IndexPath) -> String? {
+        let userScore: UserScore = dataSource[indexPath.section].list[indexPath.row]
         let text = "Name: \(userScore.name),  Score: \(userScore.score) \n"
         return text
     }
@@ -64,14 +79,19 @@ class UserScoreViewController: UIViewController {
 //MARK: UITableViewDatasource & UITableViewDelegate
 
 extension UserScoreViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        dataSource.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userScoreArrayOfDicitionaries.count
+        return dataSource[section].list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ScoreTableViewCell.identifier, for: indexPath) as! ScoreTableViewCell
         
-        cell.scoreTextLabel.text = getSingleUserText(index: indexPath.row)
+        cell.scoreTextLabel.text = getSingleUserText(indexPath: indexPath)
 
         cell.layer.cornerRadius = 10
         cell.layer.borderColor = UIColor.orange.cgColor
@@ -90,9 +110,18 @@ extension UserScoreViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let viewController = ScoreDetailViewController()
-        viewController.text = getSingleUserText(index: indexPath.row)
+        viewController.text = getSingleUserText(indexPath: indexPath)
         navigationController?.pushViewController(viewController, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return dataSource[section].title
+    }
+}
+
+struct UserScoreSection {
+    let list: [UserScore]
+    let title: String
 }
 
 

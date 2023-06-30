@@ -93,7 +93,7 @@ class ViewController: UIViewController {
     }
     
     func sheduleTimer(){
-        dataModel.countDown = 30
+        dataModel.countDown = 3
         dataModel.timer?.invalidate()
         dataModel.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimerUI), userInfo: nil, repeats: true)
     }
@@ -203,13 +203,32 @@ class ViewController: UIViewController {
     
     func saveUserScoreAsStruct(name: String) {
         let userScore: UserScore = UserScore(name: name, score: dataModel.score)
-        let userScoreArray: [UserScore] = ViewController.getAllUserScore() + [userScore]
+        
+        var level: Level?
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            level = .easy
+        case 1:
+            level = .medium
+        case 2:
+            level = .hard
+        default:
+            ()
+    }
+        
+        guard let level = level else {
+            print("Level is nil because index out of [1,2,3]")
+            return
+        }
+        
+        
+        let userScoreArray: [UserScore] = ViewController.getAllUserScore(level: level) + [userScore]
         
         do{
             let encoder = JSONEncoder()
             let encodedData = try encoder.encode(userScoreArray)
             let userDefaults = UserDefaults.standard
-            userDefaults.set(encodedData, forKey: ViewControllerDataModel.userScoreKey)
+            userDefaults.set(encodedData, forKey: level.key())
             
             
         } catch {
@@ -218,11 +237,11 @@ class ViewController: UIViewController {
         //get all previously save users
     }
     
-    static func getAllUserScore() -> [UserScore] {
+    static func getAllUserScore(level: Level) -> [UserScore] {
         var result: [UserScore] = []
         
         let userDefaults = UserDefaults.standard
-        if let data = userDefaults.object(forKey: ViewControllerDataModel.userScoreKey) as? Data {
+        if let data = userDefaults.object(forKey: level.key()) as? Data {
             
             do {
                 let decoder = JSONDecoder()
@@ -269,5 +288,23 @@ struct UserScore: Codable {
     let name: String
     let score: Int
 }
+
+enum Level {
+    case easy
+    case medium
+    case hard
+    
+    func key() -> String {
+        switch self {
+        case .easy:
+            return "easyUserScore"
+        case .medium:
+            return "mediumUserScore"
+        case .hard:
+            return "hardUserScore"
+        }
+    }
+}
+
 
 
