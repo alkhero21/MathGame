@@ -11,9 +11,8 @@ class UserScoreViewController: UIViewController {
     
 
     @IBOutlet weak var tableView: UITableView!
-    let cellSpacingHeight: CGFloat = 5
     
-    var userScoreArrayOfDicitionaries: [[String: Any]] = [] {
+    var userScoreArrayOfDicitionaries: [UserScore] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -28,6 +27,7 @@ class UserScoreViewController: UIViewController {
         tableView.register(UINib(nibName: "ScoreTableViewCell", bundle: nil), forCellReuseIdentifier: ScoreTableViewCell.identifier)
         tableView.dataSource = self
         tableView.rowHeight = 60
+        
         
         tableView.delegate = self
         tableView.refreshControl = UIRefreshControl()
@@ -46,38 +46,16 @@ class UserScoreViewController: UIViewController {
     }
 
     @objc func getUserScore() {
-        let userDefaults = UserDefaults.standard
-        guard let userScore = userDefaults.array(forKey: ViewController.userScoreKey) else {
-            print("UserDefaults doesn't contain array with key : \(ViewController.userScoreKey)")
-            return
-        }
         
-        guard let userScoreArrayOfDictionaries = userScore as? [[String: Any]] else {
-            print("Couldn't convert Any to [[String: Any]]")
-            return
-        }
-        
-//        var text:String = ""
-//
-//        userScoreArrayOfDictionaries.forEach{ dictionary in
-//            if let name = dictionary["name"] as? String, let score = dictionary["score"] as? Int {
-//                text += "Name: \(name),  Score \(score) \n"
-//            }
-//
-//        }
         tableView.refreshControl?.endRefreshing()
-        
-        self.userScoreArrayOfDicitionaries = userScoreArrayOfDictionaries
+        self.userScoreArrayOfDicitionaries = ViewController.getAllUserScore()
         
     }
     
     
     func getSingleUserText(index: Int) -> String? {
-        let dictionary: [String: Any] = userScoreArrayOfDicitionaries[index]
-        guard let name = dictionary["name"] as? String, let score = dictionary["score"] as? Int else{
-            return nil
-        }
-        let text = "Name: \(name),  Score \(score) \n"
+        let userScore: UserScore = userScoreArrayOfDicitionaries[index]
+        let text = "Name: \(userScore.name),  Score: \(userScore.score) \n"
         return text
     }
     
@@ -101,9 +79,11 @@ extension UserScoreViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-           return cellSpacingHeight
-    }
+    
+    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//           return 200
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("User selected row \(indexPath.row)")
@@ -114,3 +94,5 @@ extension UserScoreViewController: UITableViewDataSource, UITableViewDelegate {
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
+
+
