@@ -49,13 +49,22 @@ class UserScoreViewController: UIViewController {
         
         tableView.refreshControl?.endRefreshing()
         
-        let easyScoreList = ViewController.getAllUserScore(level: .easy)
+        var easyScoreList = ViewController.getAllUserScore(level: .easy)
+        easyScoreList.sort { userScore1 , userScore2 in
+            return userScore1.score > userScore2.score
+        }
         let easySection = UserScoreSection(list: easyScoreList, title: "Easy")
         
-        let mediumScoreList = ViewController.getAllUserScore(level: .medium)
+        var mediumScoreList = ViewController.getAllUserScore(level: .medium)
+        mediumScoreList.sort {userScore1 , userScore2 in
+                return userScore1.score > userScore2.score
+            }
         let mediumSection = UserScoreSection(list: mediumScoreList, title: "Medium")
         
-        let hardScoreList = ViewController.getAllUserScore(level: .hard)
+        var hardScoreList = ViewController.getAllUserScore(level: .hard)
+        hardScoreList.sort {userScore1 , userScore2 in
+            return userScore1.score > userScore2.score
+        }
         let hardSection = UserScoreSection(list: hardScoreList, title: "Hard")
         
         

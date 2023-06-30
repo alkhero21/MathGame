@@ -93,7 +93,7 @@ class ViewController: UIViewController {
     }
     
     func sheduleTimer(){
-        dataModel.countDown = 3
+        dataModel.countDown = 30
         dataModel.timer?.invalidate()
         dataModel.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimerUI), userInfo: nil, repeats: true)
     }
